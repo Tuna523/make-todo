@@ -13,6 +13,7 @@ export type TodoList = {
 const Home: React.FC<NextPage> = () => {
   
   // 추가과제
+  // 메롱 11111
   // 0. 코드정리 필수~ ✔︎
   // 1. checked 여부 : boolean 타입에다가 추가해봅시당~  ✔
   // 2. 컴포넌트로 쪼개봅시다... (필수 ><) ✔︎
