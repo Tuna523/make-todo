@@ -1,0 +1,81 @@
+import type { NextPage } from 'next'
+import Head from 'next/head'
+import styles from '../styles/Home.module.css'
+import React from "react"
+
+import { useState } from 'react'
+
+const Home: NextPage = () => {
+
+  const when = new Date();
+  const tdlist: string[] = [];
+  // let id: number;
+  
+  
+  const [txt, setTxt] = useState("");
+  const [index, setIndex] = useState(0);
+  const [todos, setTodos] = useState(tdlist);
+  const [complete, setComplete] = useState(false);
+  
+  interface todo {
+    index: number,
+    checked: boolean,
+    txt: string;
+  }
+
+  const BTclicked = () => {
+    const todo = {
+      index: index,
+      checked: false,
+      txt: txt
+    }
+    setTodos(todos.concat(txt));
+    setTxt("");
+  }
+
+  const rmvBT = (target:unknown) => {
+    setTodos(todos.filter((a,index) => index !== target))
+  }
+
+  return (
+
+    <div>
+
+      <Head>
+        <title>my todo list</title>
+      </Head>
+
+      <div className='allin'>
+        {todos.map((mytext,index)=>{
+          return(
+          <li key={index}>
+            <input id='ckbt' type={'checkbox'}
+            onClick={(event)=>{}} 
+            defaultChecked={false}/>
+            <span key={index}>{mytext}{"  "}{when.toLocaleDateString()}</span>
+            <button onClick={(event)=>{rmvBT(index)}}>제거</button>
+            <div>
+            <input type={'date'}></input>
+            <input type={'time'}></input>
+            </div>
+            </li>
+            )
+        })}
+      </div>
+
+      <div className='inp'>
+        <form>
+          <input placeholder='할 일 입력' value={txt} onChange={(event)=>{ setTxt(event.currentTarget.value) }}></input>
+          <button onClick={(event)=>{BTclicked();
+            event.preventDefault()
+            setIndex(index+1)}}>
+            등록
+          </button>
+        </form>
+      </div>
+
+    </div>
+  )
+}
+
+export default Home

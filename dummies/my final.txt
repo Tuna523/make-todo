@@ -1,8 +1,9 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import React, { Component, useState } from "react"
+import React, { useState } from "react"
 import List from "../components/List"
 import Inputbox from '../components/Inputbox'
+
 
 export type TodoList = {
   value: string, // 사용자가 뭘 입력했는지.....
@@ -56,20 +57,16 @@ const Home: React.FC<NextPage> = () => {
   }
 
   return (
-    <section className='outside padding_top padding_bottom padding_side'>
-        <Head>
-          <title>my todo list</title>
-        </Head>
-      <div className='row padding_top padding_bottom justify_content_center'>
-        <div className='list_tab'>
-          <h2 className='list_title'>To do List</h2>
-        
-          <List todoList={newTodos} handleTodoListRemove={handleTodoListRemove} onClickHandler={onClickHandler} realEdit={realEdit}/>
 
-          <Inputbox todoList={newTodos} handleTodoListAdd={handleTodoListAdd} handleTodoListEdit={handleTodoListEdit} />
-          </div>
-      </div>
-    </section>
+    <div>
+      <Head>
+        <title>my todo list</title>
+      </Head>
+    
+      <List todoList={newTodos} handleTodoListRemove={handleTodoListRemove} onClickHandler={onClickHandler} realEdit={realEdit}/>
+
+      <Inputbox todoList={newTodos} handleTodoListAdd={handleTodoListAdd} handleTodoListEdit={handleTodoListEdit} />
+    </div>
   )
 }
 

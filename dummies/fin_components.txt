@@ -1,0 +1,93 @@
+import type { NextPage } from 'next'
+import Head from 'next/head'
+import React, { useState } from "react"
+import List from "../components/List"
+import Inputbox from '../components/Inputbox'
+
+const Home: React.FC<NextPage> = () => {
+
+  // 추가과제
+  // 0. 코드정리 필수~
+  // 1. checked 여부 : boolean 타입에다가 추가해봅시당~
+  // 2. 컴포넌트로 쪼개봅시다... (필수 ><)
+  // 3. 수정기능 추가해보자 ~
+
+  type TodoList = {
+    value: string, // 사용자가 뭘 입력했는지.....
+    date: Date // 언제 입력했는지
+  }
+  let index:number;
+  const [txt, setTxt] = useState<string>("");
+  const [txtedit, setTxtedit] = useState<string>("");
+  const [newTodos, setNewTodos]=useState<TodoList[]>([]);
+  const [checked, setChecked] = useState<boolean>(false);
+
+  const onClickHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+    let change = document.getElementById('CheckButton');
+
+    if (event.target.checked) {
+      console.log(checked);
+    } else {
+      console.log(checked);
+    }
+    setChecked(current => !current);
+  }
+
+
+  // 추가 함수
+  const handleTodoListAdd = (todo: TodoList) => {
+    setNewTodos(prev => ([...prev, todo]))
+  }
+
+  // 제거 함수
+  const handleTodoListRemove = (index:number) => {
+    setNewTodos(prev => prev.filter((_, i) => i !== index))
+  }
+
+  return (
+
+    <div>
+
+      <Head>
+        <title>my todo list</title>
+      </Head>
+    
+      <List todoList={newTodos} handleTodoListRemove={handleTodoListRemove}></List>
+      {/* <div className='allin'>
+        {newTodos.map((mytext,index)=>{
+        return(
+        <li key={index}>
+          <input id='CheckButton' type={'checkbox'}
+          onChange={(event)=>{onClickHandler(event)}}
+          defaultChecked={false}/>
+          <span>{mytext.value} {formatDate(mytext.date)}</span>
+          <span> <button onClick={(event)=>{EditHandler(index)}}>수정</button>
+          <button onClick={(event)=>{handleRemove(index)}}>제거</button></span>
+        <div>
+          <input type={'date'}></input>
+          <input type={'time'}></input>
+          <button onClick={(e)=>{
+            console.log(index)
+          }}>index_check</button>
+        </div>
+        </li>
+        )
+    })}
+  </div> */}
+    <Inputbox todoList={newTodos} handleTodoListAdd={handleTodoListAdd} ></Inputbox>
+      {/* <div className='inp'>
+        <form>
+          <input placeholder='할 일 입력' value={txt} onChange={onChangeHandler}/>
+          <button onClick={handleSubmit}>
+            등록
+          </button>
+          <div><input placeholder='수정할 내용' value={txtedit} onChange={onChangeEditHandler}/></div>
+        </form>
+      </div> */}
+
+    </div>
+  )
+}
+
+export default Home

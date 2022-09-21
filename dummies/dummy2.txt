@@ -1,0 +1,129 @@
+import type { NextPage } from 'next'
+import Head from 'next/head'
+import styles from '../styles/Home.module.css'
+import React from "react"
+
+import { useState } from 'react'
+
+const Home: NextPage = () => {
+
+  // 추가과제
+  // 0. 코드정리 필수~
+  // 1. checked 여부 : boolean 타입에다가 추가해봅시당~
+  // 2. 컴포넌트로 쪼개봅시다... (필수 ><)
+  // 3. 수정기능 추가해보자 ~
+
+  type TodoList = {
+    value: string, // 사용자가 뭘 입력했는짇.....
+    date: Date // 언제 입력했는지
+  }
+  type ButtonStatus = {
+    checked:boolean
+  }
+  const date = new Date();
+  var day = date.getDate()
+  var month = date.getMonth() + 1
+  var year = date.getFullYear()
+  var ymd = year + "/" + month + "/" + day
+  console.log(ymd)
+
+  const formatDate = (input: Date) => {
+  var day = input.getDate()
+  var month = input.getMonth() + 1
+  var year = input.getFullYear()
+  var ymd = year + "/" + month + "/" + day
+  return `${ymd} ${input.getHours()}:${input.getMinutes()}:${input.getSeconds()}`
+  }
+  
+  // const tdlist: string[] = []; // 
+  
+  const [txt, setTxt] = useState<string>("");
+  const [index, setIndex] = useState<number>(0);
+  const [todos, setTodos] = useState<string[]>([]);
+  const [newTodos, setNewTodos]=useState<TodoList[]>([]);
+  const [checked, setChecked] = useState<boolean>(false);
+
+  const BTclicked = () => {
+    setTodos(todos.concat(txt));
+    setTxt("");
+  }
+
+
+  // 새로운 등록함수....
+  const handleSubmit = (e: React.SyntheticEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const todo = {
+      value: txt,
+      date: new Date()
+    }
+    setNewTodos(prev => ([...prev, todo]))
+    setTxt("")
+
+  }
+
+  const rmvBT = (target:number) => {
+    setTodos(todos.filter((a,index) => index !== target))
+  }
+
+
+  // 새로운 삭제함수
+  const handleRemove = (index: number) => {
+    setNewTodos(prev => prev.filter((_, i) => i !== index))
+  }
+
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // 1
+    setTxt(e.target.value)
+
+    // 2
+    // const {value} =  e.target
+    // setTxt(value)
+
+    // // 3
+    // setTxt(prev=> value)
+
+  }
+
+  return (
+
+    <div>
+
+      <Head>
+        <title>my todo list</title>
+      </Head>
+
+      <div className='allin'>
+        {newTodos.map((mytext,index)=>{
+          return(
+          <li key={index}>
+            <input id='ckbt' type={'checkbox'}
+            onClick={(event)=>{}}
+            defaultChecked={false}/>
+            <span>{mytext.value} {formatDate(mytext.date)}</span>
+            <button onClick={(event)=>{handleRemove(index)}}>제거</button>
+            <div>
+            <input type={'date'}></input>
+            <input type={'time'}></input>
+            <button onClick={(e)=>{
+              console.log(index)
+            }}>index_check</button>
+            </div>
+            </li>
+            )
+        })}
+      </div>
+
+      <div className='inp'>
+        <form>
+          <input placeholder='할 일 입력' value={txt} onChange={onChangeHandler}></input>
+          <button onClick={handleSubmit}>
+            등록
+          </button>
+        </form>
+      </div>
+
+    </div>
+  )
+}
+
+export default Home

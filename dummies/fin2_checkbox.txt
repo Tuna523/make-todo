@@ -1,0 +1,82 @@
+import type { NextPage } from 'next'
+import Head from 'next/head'
+// import styles from '../styles/Home.module.css'
+import React, { useEffect, useState } from "react"
+import List from "../components/List"
+import Inputbox from '../components/Inputbox'
+import { prepareServerlessUrl } from 'next/dist/server/base-server'
+
+
+export type TodoList = {
+  value: string, // 사용자가 뭘 입력했는지.....
+  date: Date, // 언제 입력했는지
+  completed: boolean,
+}
+
+const Home: React.FC<NextPage> = () => {
+
+  // 추가과제
+  // 0. 코드정리 필수~ ✔︎
+  // 1. checked 여부 : boolean 타입에다가 추가해봅시당~ X                    ✔︎(?)
+  // 2. 컴포넌트로 쪼개봅시다... (필수 ><) ✔︎
+  // 3. 수정기능 추가해보자 ~ 
+  type EditTodoList = {
+    value: string,
+    date: Date
+  }
+
+  const [newTodos, setNewTodos] = useState<TodoList[]>([]);
+
+  // 추가 함수
+  const handleTodoListAdd = (todo: TodoList) => {
+    setNewTodos(prev => ([...prev, todo]))
+  }
+
+  // 수정 함수 (예정)
+  const handleEditList = (todo: TodoList, index: number) => {
+  }
+
+  // 제거 함수
+  const handleTodoListRemove = (index:number) => {
+    setNewTodos(prev => prev.filter((_, i) => i !== index))
+    event?.preventDefault()
+  }
+
+  // 버튼 체크의 값 (boolean)
+  const onClickHandler = (index:number, checked: boolean) => {
+
+    console.log(index, checked);
+    
+    const news = newTodos
+    news[index].completed = !checked
+
+    setNewTodos([...news])
+  
+
+    // const todo = {
+    //   completed: checking
+    // }
+    // if (event.target.checked) {
+    //   console.log(checking);
+    // } else {
+    //   console.log(checking);
+    // }
+    // setChecking(current => !current);
+    // console.log(todo)
+  }
+
+  return (
+
+    <div>
+      <Head>
+        <title>my todo list</title>
+      </Head>
+    
+      <List todoList={newTodos} handleTodoListRemove={handleTodoListRemove} onClickHandler={onClickHandler}/>
+
+      <Inputbox todoList={newTodos} handleTodoListAdd={handleTodoListAdd} handleEditList={handleEditList}/>
+    </div>
+  )
+}
+
+export default Home
