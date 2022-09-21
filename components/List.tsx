@@ -3,12 +3,22 @@ import { TodoList } from "../pages";
 
 
 const formatDate = (input: Date) => {
-    var day = input.getDate() // 일
-    var month = input.getMonth() + 1 // 월 + 1
-    var year = input.getFullYear() // 년도
-    var ymd = year + "/" + month + "/" + day // 년/월/일 표시
-    console.log(ymd) // console 창에서 확인하기
-    return `${ymd} ${input.getHours()}:${input.getMinutes()}:${input.getSeconds()}`
+    let day = input.getDate(); // 일
+    let month = input.getMonth() + 1; // 월 + 1
+    let year = input.getFullYear(); // 년도
+    var hours_before = new Date().getHours() - input.getHours();
+    var minutes_before = new Date().getMinutes() - input.getMinutes();
+    var seconds_before = new Date().getSeconds() - input.getSeconds();
+    if(seconds_before < 0){
+      seconds_before = 60 + seconds_before;
+      minutes_before = minutes_before - 1;
+    }
+    var ymd = year + "/" + month + "/" + day; // 년/월/일 표시
+    console.log(ymd); // console 창에서 확인하기
+    return (
+      `${ymd} ${input.getHours()}:${input.getMinutes()}:${input.getSeconds()}
+      , ${hours_before}시간 ${minutes_before}분 ${seconds_before}초 전`
+    )
 }
 
 const List: React.FC<{
@@ -17,6 +27,8 @@ const List: React.FC<{
   onClickHandler: (index:number, checked: boolean) => void
   realEdit: (todo:TodoList, index:number) => void
 }> = ({todoList,handleTodoListRemove,onClickHandler,realEdit}) => {
+
+  //const [editmod, setEditmod] = useState(false);
 
     // 삭제함수
     const handleRemove = (event:React.SyntheticEvent<HTMLButtonElement>,index:number) => {
