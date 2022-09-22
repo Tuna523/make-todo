@@ -8,6 +8,7 @@ export type TodoList = {
   value: string, // 사용자가 뭘 입력했는지.....
   date: Date, // 언제 입력했는지
   completed: boolean,
+  id:number
 }
 
 const Home: React.FC<NextPage> = () => {
@@ -20,9 +21,9 @@ const Home: React.FC<NextPage> = () => {
   // 3. 수정기능 추가해보자 ~ ✔︎(?)
 
   // 0921 ==============================================================================================================================
-  // 등록한 todo가 몇분전인지
+  // 등록한 todo가 몇분전인지 ✔︎
 
-  // 수정버튼 수정
+  // 수정버튼 수정 
 
   // 로컬 스토리지
   // 1. 페이지 접근시, 로컬스트리지에 이전에 저장한 투두리스트 목록이 있는지 검사
@@ -75,7 +76,6 @@ const Home: React.FC<NextPage> = () => {
     news[index].completed = !checked;
 
     setNewTodos([...news]);
-  
   }
 
   return (
@@ -87,7 +87,7 @@ const Home: React.FC<NextPage> = () => {
         <div className='list_tab'>
           <h2 className='list_title'>To do List</h2>
         
-          <List todoList={newTodos} handleTodoListRemove={handleTodoListRemove} onClickHandler={onClickHandler} realEdit={realEdit}/>
+          <List todoList={newTodos} handleTodoListRemove={handleTodoListRemove} onClickHandler={onClickHandler} />
 
           <Inputbox todoList={newTodos} handleTodoListAdd={handleTodoListAdd} handleTodoListEdit={handleTodoListEdit} />
           </div>

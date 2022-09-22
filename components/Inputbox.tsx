@@ -10,7 +10,6 @@ const Inputbox: React.FC<{
   const [txt, setTxt] = useState<string>("");
   const [txtedit, setTxtedit] = useState<string>("");
   const [myeditTxt, setMyeditTxt] = useState<string>("");
-  const [index, setIndex] = useState<number>(0);
   // const [newTodos, setNewTodos] = useState<TodoList[]>([]);
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +30,8 @@ const Inputbox: React.FC<{
       const todo = {
         value: txt,
         date: new Date(),
-        completed: false
+        completed: false,
+        id: todoList.length
       }
       // setNewTodos(prev => ([...prev, todo]))
       handleTodoListAdd(todo);
@@ -44,7 +44,7 @@ const Inputbox: React.FC<{
     console.log(txtedit);
     }
 
-  const handleEdit = (e: React.SyntheticEvent<HTMLButtonElement>) => {
+/*   const handleEdit = (e: React.SyntheticEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const todo = {
       value: txtedit,
@@ -55,18 +55,18 @@ const Inputbox: React.FC<{
     handleTodoListEdit(todo);
     setTxtedit("");
   }
-
+ */
   return(      
     <form className="inputbox_wrap">
-    <input maxLength={20} className="todo_inputbox" placeholder='할 일 입력' value={txt} onChange={onChangeHandler}/>
+    <input name="todoItem" maxLength={20} className="todo_inputbox" placeholder='할 일 입력' value={txt} onChange={onChangeHandler}/>
     <button className="input_button inputbox_buttons" onClick={handleSubmit}>
         등록
     </button>
-      <input maxLength={20} className="edit_inputbox" placeholder='수정할 내용' value={txtedit} onChange={onChangeEditHandler}/>
+      {/* <input maxLength={20} className="edit_inputbox" placeholder='수정할 내용' value={txtedit} onChange={onChangeEditHandler}/>
       <button className="edit_button inputbox_buttons" onClick={(e)=>{handleEdit(e)}}>수정할 내용 담기</button>
     <div className="edit_text">수정할 내용:
         <span>{myeditTxt}</span>
-      </div>
+      </div> */}
     </form>
   )
 }

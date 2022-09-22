@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { TodoList } from "../pages";
 
 
@@ -8,6 +8,10 @@ const formatDate = (input: Date) => {
     let year = input.getFullYear(); // 년도
     var hours_before = new Date().getHours() - input.getHours();
     var minutes_before = new Date().getMinutes() - input.getMinutes();
+    if(minutes_before < 0){
+      minutes_before = 60 + seconds_before;
+      minutes_before = hours_before - 1;
+    }
     var seconds_before = new Date().getSeconds() - input.getSeconds();
     if(seconds_before < 0){
       seconds_before = 60 + seconds_before;
@@ -21,14 +25,32 @@ const formatDate = (input: Date) => {
     )
 }
 
+type todoItem = {
+  id:number,
+  text:string
+}
+
 const List: React.FC<{
   todoList: TodoList[]
   handleTodoListRemove: (index:number) => void
   onClickHandler: (index:number, checked: boolean) => void
-  realEdit: (todo:TodoList, index:number) => void
-}> = ({todoList,handleTodoListRemove,onClickHandler,realEdit}) => {
+  
+}> = ({todoList,handleTodoListRemove,onClickHandler}) => {
 
-  //const [editmod, setEditmod] = useState(false);
+    const [newTodos, setNewTodos] = useState<TodoList[]>([]);
+    const [edited, setEdited] = useState(false);
+    const [newText, setNewText] = useState("");
+    const editInputRef = useRef(null);
+
+    useEffect(() => {
+      if (edited) {
+        editInputRef.current.focus();
+      }
+    }, [edited]);
+
+    const onChangeEditInput = (e) => {
+      setNewText(e.target.value);
+    }
 
     // 삭제함수
     const handleRemove = (event:React.SyntheticEvent<HTMLButtonElement>,index:number) => {
@@ -42,13 +64,28 @@ const List: React.FC<{
 
       onClickHandler(index, checked);}
 
-    const EditButton = (event:React.SyntheticEvent<HTMLButtonElement>, index: number, todo: TodoList) => {
+    const onClickEditButton = (event:React.SyntheticEvent<HTMLButtonElement>) => {
       event.preventDefault();
-      realEdit (todo,index);
+      setEdited(true);
+    }
+
+    const EditButton = (event:React.SyntheticEvent<HTMLButtonElement>, index: number, todo: TodoList) => {
+      setEdited(false)
+      event.preventDefault();
+      // realEdit (todo,index);
     }
   
-    console.log(todoList);
-  
+    const onClickSubmitButton = (event:React.SyntheticEvent<HTMLButtonElement>,todoItem:{id:number,text:string}) => {
+      const nextTodoList = todoList.map((item) => ({
+        ...item,
+        text: item.id === todoItem.id ? newText : item.value
+      }));
+      event.preventDefault();
+      setNewTodos(nextTodoList);
+
+      setEdited(false);
+    };
+
     return(
     <div>
       {todoList.map((mytext,index)=>{
@@ -64,7 +101,36 @@ const List: React.FC<{
           <span>{mytext.value} {/* index:{index} */} {formatDate(mytext.date)}</span>
           </div>
           <span className="list_button_wrap">
-            <button className="edit_button list_buttons" onClick={(event)=>{EditButton(event, index, mytext)}}>수정</button>
+            {
+              edited ? (
+                <input
+                  maxLength={15}
+                  className=""
+                  value={newText||''}
+                  ref={editInputRef}
+                  onChange={onChangeEditInput}/>
+              ) : (
+                <span className="">
+                  
+                </span>
+              )
+            }
+            {
+              edited ? (
+                <button 
+                  className="edit_button list_buttons" 
+                  onClick={onClickSubmitButton}>
+                AAA
+                </button>
+              ) : (
+                <button 
+                  className="edit_button list_buttons" 
+                  onClick={onClickEditButton}>
+                  수수수
+                </button>
+                )
+              }
+            {/* <TodoItem todoList={todoList} todoItem={TodoItem}/> */}
             <button className="remove_button list_buttons" onClick={(event)=>{handleRemove(event, index)}}>제거</button>
           </span>
           <div className="time_wrap">
