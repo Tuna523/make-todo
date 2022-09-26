@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import List from "../components/List"
 import Inputbox from '../components/Inputbox'
 
@@ -11,20 +11,53 @@ export type TodoList = {
   id:number,
   isEdit:boolean
 }
+function formatDate(dateString) {
+  const input = new Date(dateString);
+  let day = input.getDate(); // 일
+  let month = input.getMonth() + 1; // 월 + 1
+  let year = input.getFullYear(); // 년도
+  var hours_before = new Date().getHours() - input.getHours();
+  var minutes_before = new Date().getMinutes() - input.getMinutes();
+  if(minutes_before < 0){
+    minutes_before = 60 + seconds_before;
+    minutes_before = hours_before - 1;
+  }
+  var seconds_before = new Date().getSeconds() - input.getSeconds();
+  if(seconds_before < 0){
+    seconds_before = 60 + seconds_before;
+    minutes_before = minutes_before - 1;
+  }
+  var ymd = year + "/" + month + "/" + day; // 년/월/일 표시
+  console.log(ymd); // console 창에서 확인하기
+  return (
+    `${ymd} ${input.getHours()}:${input.getMinutes()}:${input.getSeconds()}
+    , ${hours_before}시간 ${minutes_before}분 ${seconds_before}초 전`
+  )
+}
 
 const Home: React.FC<NextPage> = () => {
   
-  
   const [newTodos, setNewTodos] = useState<TodoList[]>([]);
+  
+  useEffect(() => {
+    const data = localStorage.getItem('my_todo_state');
+    if ( data !== null ) setNewTodos(JSON.parse(data));
+  }, []);
+  
+  function saveList(){
+    localStorage.setItem('my_todo_state', JSON.stringify(newTodos));
+  }
   
   // 추가 함수
   const handleTodoListAdd = (todo: TodoList) => {
     setNewTodos(prev => ([...prev, todo]));
+    saveList()
   }
   
   // 제거 함수
   const handleTodoListRemove = (index: number) => {
     setNewTodos(prev => prev.filter((_, i) => i !== index));
+    saveList()
   }
   
   // 버튼 체크의 값 (boolean)
@@ -48,9 +81,11 @@ const Home: React.FC<NextPage> = () => {
           <h2 className='list_title'>To do List</h2>
         
           <List handleTodoListRemove={handleTodoListRemove}
-          onClickHandler={onClickHandler} newTodos={newTodos} setNewTodos={setNewTodos} />
+          onClickHandler={onClickHandler} newTodos={newTodos} setNewTodos={setNewTodos} formatDate={formatDate}
+          saveList={saveList} />
 
           <Inputbox newTodos={newTodos} handleTodoListAdd={handleTodoListAdd} />
+
           </div>
       </div>
     </section>
