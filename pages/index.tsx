@@ -8,7 +8,8 @@ export type TodoList = {
   value: string, // 사용자가 뭘 입력했는지.....
   date: Date, // 언제 입력했는지
   completed: boolean,
-  id:number
+  id:number,
+  isEdit:boolean
 }
 
 const Home: React.FC<NextPage> = () => {
@@ -91,7 +92,8 @@ const Home: React.FC<NextPage> = () => {
         <div className='list_tab'>
           <h2 className='list_title'>To do List</h2>
         
-          <List todoList={newTodos} handleTodoListRemove={handleTodoListRemove} onClickHandler={onClickHandler} getEditText={getEditText} />
+          <List todoList={newTodos} handleTodoListRemove={handleTodoListRemove}
+          onClickHandler={onClickHandler} newTodos={newTodos} setNewTodos={setNewTodos} />
 
           <Inputbox todoList={newTodos} handleTodoListAdd={handleTodoListAdd} handleTodoListEdit={handleTodoListEdit} />
           </div>

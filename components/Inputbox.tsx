@@ -31,7 +31,8 @@ const Inputbox: React.FC<{
         value: txt,
         date: new Date(),
         completed: false,
-        id: todoList.length
+        id: todoList.length,
+        isEdit:false
       }
       // setNewTodos(prev => ([...prev, todo]))
       handleTodoListAdd(todo);

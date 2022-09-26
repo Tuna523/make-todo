@@ -29,24 +29,13 @@ const List: React.FC<{
   todoList: TodoList[]
   handleTodoListRemove: (index:number) => void
   onClickHandler: (index:number, checked: boolean) => void
-  getEditText: (newText) => void
-  
-}> = ({todoList,handleTodoListRemove,onClickHandler,getEditText}) => {
+  newTodos:TodoList[]
+  setNewTodos:React.Dispatch<React.SetStateAction<TodoList[]>>
 
-    const [newTodos, setNewTodos] = useState<TodoList[]>([]);
-    const [edited, setEdited] = useState(false);
+}> = ({todoList,handleTodoListRemove,onClickHandler,newTodos,setNewTodos}) => {
+
     const [newText, setNewText] = useState("");
     const editInputRef = useRef(null);
-
-    useEffect(() => {
-      if (edited) {
-        editInputRef.current.focus();
-      }
-    }, [edited]);
-
-    const onChangeEditInput = (e) => {
-      setNewText(e.target.value);
-    }
 
     // 삭제함수
     const handleRemove = (event:React.SyntheticEvent<HTMLButtonElement>,index:number) => {
@@ -60,23 +49,31 @@ const List: React.FC<{
 
       onClickHandler(index, checked);}
 
-    const onClickEditButton = (event:React.SyntheticEvent<HTMLButtonElement>) => {
-      event.preventDefault();
-      setEdited(true);
+      const isEdit = (id:number) => {
+        setNewTodos(
+          newTodos.map((mytext)=>{
+            if (mytext.id === id) {
+              mytext.isEdit = !mytext.isEdit;
+            }
+            return mytext;
+          })
+          )
+        }
+        const editButton = (event,id:number) => {
+          event.preventDefault()
+          isEdit(id);
+        }
+        
+    const onChange = (event:React.ChangeEvent<HTMLInputElement>, id:number) => {
+      setNewTodos(
+        newTodos.map((mytext) => {
+          if (mytext.id === id) {
+            mytext.value = event.target.value;
+          }
+          return mytext;
+        })
+      )
     }
-
-   /*  const EditButton = (event:React.SyntheticEvent<HTMLButtonElement>, index: number, todo: TodoList) => {
-      setEdited(false)
-      event.preventDefault();
-      realEdit (todo,index);
-    } */
-  
-    const onClickSubmitButton = (event:React.SyntheticEvent<HTMLButtonElement>) => {
-      event.preventDefault();
-      getEditText(newText);
-
-      setEdited(false);
-    };
 
     return(
     <div>
@@ -93,35 +90,21 @@ const List: React.FC<{
           <span>{mytext.value} {/* index:{index} */} {formatDate(mytext.date)}</span>
           </div>
           <span className="list_button_wrap">
-            {
-              edited ? (
-                <input
-                  maxLength={15}
-                  className=""
-                  value={newText||''}
-                  ref={editInputRef}
-                  onChange={onChangeEditInput}/>
-              ) : (
-                <span className="">
-                  
-                </span>
-              )
-            }
-            {
-              edited ? (
-                <button 
-                  className="edit_button list_buttons" 
-                  onClick={onClickSubmitButton}>
-                완료
-                </button>
-              ) : (
-                <button 
-                  className="edit_button list_buttons" 
-                  onClick={onClickEditButton}>
-                  수정하기
-                </button>
-                )
-              }
+            {mytext.isEdit ? (
+              <input
+              maxLength={15}
+              type="text"
+              defaultValue={mytext.value}
+              ref={editInputRef}
+              autoFocus
+              onChange={(event) => onChange(event, mytext.id)}
+              />
+            ) : (
+              <div>
+                {mytext.value}
+              </div>
+            )}
+            <button className="list_buttons" onClick={() => editButton(event,mytext.id)}>수정</button>
             <button className="remove_button list_buttons" onClick={(event)=>{handleRemove(event, index)}}>제거</button>
           </span>
           <div className="time_wrap">
