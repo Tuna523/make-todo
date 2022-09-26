@@ -26,13 +26,13 @@ const formatDate = (input: Date) => {
 }
 
 const List: React.FC<{
-  todoList: TodoList[]
+
   handleTodoListRemove: (index:number) => void
   onClickHandler: (index:number, checked: boolean) => void
   newTodos:TodoList[]
   setNewTodos:React.Dispatch<React.SetStateAction<TodoList[]>>
 
-}> = ({todoList,handleTodoListRemove,onClickHandler,newTodos,setNewTodos}) => {
+}> = ({handleTodoListRemove,onClickHandler,newTodos,setNewTodos}) => {
 
     const editInputRef = useRef(null);
 
@@ -75,7 +75,7 @@ const List: React.FC<{
 
     return(
     <div>
-      {todoList.map((mytext,index)=>{
+      {newTodos.map((mytext,index)=>{
       return(
       <form className="list_wrap" key={index}>
         <div className="list_content">

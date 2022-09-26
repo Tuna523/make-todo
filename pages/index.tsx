@@ -47,10 +47,10 @@ const Home: React.FC<NextPage> = () => {
         <div className='list_tab'>
           <h2 className='list_title'>To do List</h2>
         
-          <List todoList={newTodos} handleTodoListRemove={handleTodoListRemove}
+          <List handleTodoListRemove={handleTodoListRemove}
           onClickHandler={onClickHandler} newTodos={newTodos} setNewTodos={setNewTodos} />
 
-          <Inputbox todoList={newTodos} handleTodoListAdd={handleTodoListAdd} />
+          <Inputbox newTodos={newTodos} handleTodoListAdd={handleTodoListAdd} />
           </div>
       </div>
     </section>

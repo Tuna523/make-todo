@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { TodoList } from "../pages";
   
 const Inputbox: React.FC<{
-  todoList: TodoList[]
+  newTodos: TodoList[]
   handleTodoListAdd: (todo: TodoList) => void
-}> = ({todoList, handleTodoListAdd}) => {
+}> = ({newTodos, handleTodoListAdd}) => {
   
   const [txt, setTxt] = useState<string>("");
 
@@ -27,7 +27,7 @@ const Inputbox: React.FC<{
         value: txt,
         date: new Date(),
         completed: false,
-        id: todoList.length,
+        id: newTodos.length,
         isEdit:false
       }
       handleTodoListAdd(todo);
