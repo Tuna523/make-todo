@@ -25,17 +25,13 @@ const formatDate = (input: Date) => {
     )
 }
 
-type todoItem = {
-  id:number,
-  text:string
-}
-
 const List: React.FC<{
   todoList: TodoList[]
   handleTodoListRemove: (index:number) => void
   onClickHandler: (index:number, checked: boolean) => void
+  getEditText: (newText) => void
   
-}> = ({todoList,handleTodoListRemove,onClickHandler}) => {
+}> = ({todoList,handleTodoListRemove,onClickHandler,getEditText}) => {
 
     const [newTodos, setNewTodos] = useState<TodoList[]>([]);
     const [edited, setEdited] = useState(false);
@@ -69,19 +65,15 @@ const List: React.FC<{
       setEdited(true);
     }
 
-    const EditButton = (event:React.SyntheticEvent<HTMLButtonElement>, index: number, todo: TodoList) => {
+   /*  const EditButton = (event:React.SyntheticEvent<HTMLButtonElement>, index: number, todo: TodoList) => {
       setEdited(false)
       event.preventDefault();
-      // realEdit (todo,index);
-    }
+      realEdit (todo,index);
+    } */
   
-    const onClickSubmitButton = (event:React.SyntheticEvent<HTMLButtonElement>,todoItem:{id:number,text:string}) => {
-      const nextTodoList = todoList.map((item) => ({
-        ...item,
-        text: item.id === todoItem.id ? newText : item.value
-      }));
+    const onClickSubmitButton = (event:React.SyntheticEvent<HTMLButtonElement>) => {
       event.preventDefault();
-      setNewTodos(nextTodoList);
+      getEditText(newText);
 
       setEdited(false);
     };
@@ -120,17 +112,16 @@ const List: React.FC<{
                 <button 
                   className="edit_button list_buttons" 
                   onClick={onClickSubmitButton}>
-                AAA
+                완료
                 </button>
               ) : (
                 <button 
                   className="edit_button list_buttons" 
                   onClick={onClickEditButton}>
-                  수수수
+                  수정하기
                 </button>
                 )
               }
-            {/* <TodoItem todoList={todoList} todoItem={TodoItem}/> */}
             <button className="remove_button list_buttons" onClick={(event)=>{handleRemove(event, index)}}>제거</button>
           </span>
           <div className="time_wrap">

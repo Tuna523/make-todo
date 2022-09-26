@@ -36,13 +36,13 @@ const Inputbox: React.FC<{
       // setNewTodos(prev => ([...prev, todo]))
       handleTodoListAdd(todo);
       setTxt("");
-
+      
       console.log(todo.value);
     }
-  const onChangeEditHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+/*   const onChangeEditHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTxtedit(e.target.value);
     console.log(txtedit);
-    }
+    } */
 
 /*   const handleEdit = (e: React.SyntheticEvent<HTMLButtonElement>) => {
     e.preventDefault();

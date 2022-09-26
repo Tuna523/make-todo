@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import React, { Component, useState } from "react"
+import React, { useState } from "react"
 import List from "../components/List"
 import Inputbox from '../components/Inputbox'
 
@@ -45,6 +45,7 @@ const Home: React.FC<NextPage> = () => {
 
   const [newTodos, setNewTodos] = useState<TodoList[]>([]);
   const [edit, setEdit] = useState<TodoList[]>([]);
+  const [newText, setNewText] = useState()
   // 추가 함수
   const handleTodoListAdd = (todo: TodoList) => {
     setNewTodos(prev => ([...prev, todo]));
@@ -56,10 +57,13 @@ const Home: React.FC<NextPage> = () => {
     
   }
   // 실제 값을 바꾸는 버튼의 수정 함수
-  const realEdit = (todo: TodoList, index: number) => {
+/*   const realEdit = (todo: TodoList, index: number) => {
     newTodos[index].value = edit[index=0].value;
 
     handleTodoListEdit(todo);
+  } */
+
+  const getEditText = (newText:string) => {
   }
 
   // 제거 함수
@@ -87,7 +91,7 @@ const Home: React.FC<NextPage> = () => {
         <div className='list_tab'>
           <h2 className='list_title'>To do List</h2>
         
-          <List todoList={newTodos} handleTodoListRemove={handleTodoListRemove} onClickHandler={onClickHandler} />
+          <List todoList={newTodos} handleTodoListRemove={handleTodoListRemove} onClickHandler={onClickHandler} getEditText={getEditText} />
 
           <Inputbox todoList={newTodos} handleTodoListAdd={handleTodoListAdd} handleTodoListEdit={handleTodoListEdit} />
           </div>
