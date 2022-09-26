@@ -80,9 +80,9 @@ const List: React.FC<{
               <span></span>
             )}
             {mytext.isEdit ? (
-              <button className="edit_button list_buttons" onClick={() => editButton(event,mytext.id)}>완료</button>
+              <button className="edit_button list_buttons" onClick={(event) => editButton(event,mytext.id)}>완료</button>
             ):(
-              <button className="edit_button list_buttons" onClick={() => editButton(event,mytext.id)}>수정</button>
+              <button className="edit_button list_buttons" onClick={(event) => editButton(event,mytext.id)}>수정</button>
             )}
             
             <button className="remove_button list_buttons" onClick={(event)=>{handleRemove(event, index)}}>제거</button>

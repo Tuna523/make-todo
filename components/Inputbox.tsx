@@ -38,8 +38,14 @@ const Inputbox: React.FC<{
 
   return(      
     <form className="inputbox_wrap">
-    <input name="todoItem" maxLength={20} className="todo_inputbox" placeholder='할 일 입력' value={txt} onChange={onChangeHandler}/>
-    <button className="input_button inputbox_buttons" onClick={handleSubmit}>
+    <input name="todoItem" 
+    maxLength={20} 
+    className="todo_inputbox" 
+    placeholder='할 일 입력' 
+    value={txt} 
+    onChange={onChangeHandler}/>
+    <button className="input_button inputbox_buttons" 
+    onClick={handleSubmit}>
         등록
     </button>
     </form>
