@@ -34,14 +34,12 @@ const List: React.FC<{
 
 }> = ({todoList,handleTodoListRemove,onClickHandler,newTodos,setNewTodos}) => {
 
-    const [newText, setNewText] = useState("");
     const editInputRef = useRef(null);
 
     // 삭제함수
     const handleRemove = (event:React.SyntheticEvent<HTMLButtonElement>,index:number) => {
       event.preventDefault();
       handleTodoListRemove(index);
-    // setNewTodos(prev => prev.filter((_, i) => i !== index))
     }
     
     // 버튼 체크의 값 (boolean)
@@ -83,11 +81,10 @@ const List: React.FC<{
         <div className="list_content">
           <input id="checkButton"
           className={mytext.completed ? 'activated' : ''}
-          /* id='CheckButton' */ type={'checkbox'}
-          // defaultChecked={mytext.completed}
+          type={'checkbox'}
           onChange={(event)=>{ booleanhandler(event, index, mytext.completed) }}
           />
-          <span>{mytext.value} {/* index:{index} */} {formatDate(mytext.date)}</span>
+          <span>{mytext.value} {formatDate(mytext.date)}</span>
           </div>
           <span className="list_button_wrap">
             {mytext.isEdit ? (
@@ -100,11 +97,14 @@ const List: React.FC<{
               onChange={(event) => onChange(event, mytext.id)}
               />
             ) : (
-              <div>
-                {mytext.value}
-              </div>
+              <span></span>
             )}
-            <button className="list_buttons" onClick={() => editButton(event,mytext.id)}>수정</button>
+            {mytext.isEdit ? (
+              <button className="edit_button list_buttons" onClick={() => editButton(event,mytext.id)}>완료</button>
+            ):(
+              <button className="edit_button list_buttons" onClick={() => editButton(event,mytext.id)}>수정</button>
+            )}
+            
             <button className="remove_button list_buttons" onClick={(event)=>{handleRemove(event, index)}}>제거</button>
           </span>
           <div className="time_wrap">
