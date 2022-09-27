@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TodoList } from "../pages";
   
 const Inputbox: React.FC<{
   newTodos: TodoList[]
   handleTodoListAdd: (todo: TodoList) => void
-}> = ({newTodos, handleTodoListAdd}) => {
+  saveList: () => void
+}> = ({newTodos, handleTodoListAdd, saveList}) => {
   
   const [txt, setTxt] = useState<string>("");
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
       // 1
         setTxt(e.target.value);
+        saveList();
     
         // 2
         // const {value} =  e.target
@@ -32,6 +34,7 @@ const Inputbox: React.FC<{
       }
       handleTodoListAdd(todo);
       setTxt("");
+      saveList();
       
       console.log(todo.value);
     }

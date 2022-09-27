@@ -40,12 +40,12 @@ const Home: React.FC<NextPage> = () => {
   const [newTodos, setNewTodos] = useState<TodoList[]>([]);
   
   useEffect(() => {
-    const data = localStorage.getItem('my_todo_state');
+    const data = localStorage.getItem('my_todo');
     if ( data !== null ) setNewTodos(JSON.parse(data));
   }, []);
   
   function saveList(){
-    localStorage.setItem('my_todo_state', JSON.stringify(newTodos));
+    localStorage.setItem('my_todo', JSON.stringify(newTodos));
   }
   
   // 추가 함수
@@ -84,8 +84,7 @@ const Home: React.FC<NextPage> = () => {
           onClickHandler={onClickHandler} newTodos={newTodos} setNewTodos={setNewTodos} formatDate={formatDate}
           saveList={saveList} />
 
-          <Inputbox newTodos={newTodos} handleTodoListAdd={handleTodoListAdd} />
-
+          <Inputbox newTodos={newTodos} handleTodoListAdd={handleTodoListAdd} saveList={saveList}/>
           </div>
       </div>
     </section>

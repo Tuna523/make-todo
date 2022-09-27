@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { TodoList } from "../pages";
 import Time from "./Time";
 
@@ -39,6 +39,7 @@ const List: React.FC<{
         const editButton = (event,id:number) => {
           event.preventDefault()
           isEdit(id);
+          saveList();
         }
         
     const onChange = (event:React.ChangeEvent<HTMLInputElement>, id:number) => {
@@ -60,9 +61,11 @@ const List: React.FC<{
       <form className="list_wrap" key={index}>
         <div className="list_content">
           <input id="checkButton"
+          defaultChecked={mytext.completed}
           className={mytext.completed ? 'activated' : ''}
           type={'checkbox'}
           onChange={(event)=>{ booleanhandler(event, index, mytext.completed) }}
+          onClick={()=>saveList()}
           />
           <span>{mytext.value} {formatDate(mytext.date)}</span>
           </div>
