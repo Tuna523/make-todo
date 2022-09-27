@@ -85,6 +85,8 @@ const Home: React.FC<NextPage> = () => {
           saveList={saveList} />
 
           <Inputbox newTodos={newTodos} handleTodoListAdd={handleTodoListAdd} saveList={saveList}/>
+          
+          <div className="save_button_wrap"><button className="save_button" onClick={(event)=>{event.preventDefault(); saveList()}}>현재 내용 저장</button></div>
           </div>
       </div>
     </section>

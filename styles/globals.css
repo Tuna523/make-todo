@@ -65,7 +65,7 @@
 
 .inputbox_wrap {
     margin: auto;
-    width: 50%;
+    width: 55%;
 }
 
 .todo_inputbox, .edit_inputbox {
@@ -130,4 +130,12 @@
 .time_wrap {
     display: flex;
     gap: 2rem;
+}
+
+.save_button {
+    background-color: aquamarine;
+    border: 1px solid gray;
+    border-radius: 5px;
+    float: right;
+    cursor: pointer;
 }
