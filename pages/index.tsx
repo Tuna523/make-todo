@@ -3,6 +3,7 @@ import Head from 'next/head'
 import React, { useEffect, useState } from "react"
 import List from "../components/List"
 import Inputbox from '../components/Inputbox'
+import styled from "styled-components"
 
 export type TodoList = {
   value: string, // 사용자가 뭘 입력했는지.....
@@ -12,10 +13,11 @@ export type TodoList = {
   isEdit:boolean
 }
 function formatDate(dateString) {
-  const input = new Date(dateString);
+  const input = new Date(dateString); // 등록한 시간
   let day = input.getDate(); // 일
   let month = input.getMonth() + 1; // 월 + 1
   let year = input.getFullYear(); // 년도
+  
   var hours_before = new Date().getHours() - input.getHours();
   var minutes_before = new Date().getMinutes() - input.getMinutes();
   if(minutes_before < 0){
@@ -37,12 +39,23 @@ function formatDate(dateString) {
 
 const Home: React.FC<NextPage> = () => {
   
+  const [didMount, setDidMount] = useState(false)
   const [newTodos, setNewTodos] = useState<TodoList[]>([]);
   
+  // 첫 렌더시 실행되는 로직
   useEffect(() => {
+    if(!didMount) setDidMount(true)
     const data = localStorage.getItem('my_todo');
     if ( data !== null ) setNewTodos(JSON.parse(data));
   }, []);
+
+  useEffect(() => {
+    // didMount는 위에있는 로직이 실행되어야 true가 됨.
+    // 즉 렌더가 되어야 실행되는 로직
+    if (didMount) {
+      localStorage.setItem('my_todo', JSON.stringify(newTodos))
+    }
+  }, [newTodos])
   
   function saveList(){
     localStorage.setItem('my_todo', JSON.stringify(newTodos));

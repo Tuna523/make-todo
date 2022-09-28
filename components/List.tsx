@@ -67,10 +67,24 @@ const List: React.FC<{
           onChange={(event)=>{ booleanhandler(event, index, mytext.completed) }}
           onClick={()=>saveList()}
           />
-          <span>{mytext.value} {formatDate(mytext.date)}</span>
+          <div style={{display: 'flex', gap: '4px'}}>
+              <span>{mytext.isEdit ? (
+                  <input
+                  maxLength={15}
+                  type="text"
+                  defaultValue={mytext.value}
+                  ref={editInputRef}
+                  autoFocus
+                  onChange={(event) => onChange(event, mytext.id)}
+                  />
+                ) : (
+                  mytext.value
+                )}</span>
+                <span>{formatDate(mytext.date)}</span>
+             </div>
           </div>
           <span className="list_button_wrap">
-            {mytext.isEdit ? (
+            {/* {mytext.isEdit ? (
               <input
               maxLength={15}
               type="text"
@@ -81,7 +95,7 @@ const List: React.FC<{
               />
             ) : (
               <span></span>
-            )}
+            )} */}
             {mytext.isEdit ? (
               <button className="edit_button list_buttons" onClick={(event) => editButton(event,mytext.id)}>완료</button>
             ):(
