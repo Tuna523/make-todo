@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { TodoList } from "../pages";
 import Time from "./Time";
+import styles from "styled-components"
 
 const List: React.FC<{
 
@@ -54,20 +55,69 @@ const List: React.FC<{
       )
     }
 
+    const ListWrap = styles.form`
+        padding: 15px 15px 7.5px 15px;
+        width: 40rem;
+        border-bottom: 1.5px solid gray;
+    `
+
+    const ListContent = styles.div`
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    `
+
+    const CheckButton = styles.input`
+        cursor: pointer;
+    `
+
+    const TextSpace = styles.div`
+        text-decoration: ${props => props.active  ? 'line-through' : 'none'};
+        color: ${props => props.active ? 'gray' : 'black'};
+        display: flex;
+        gap: 4px;
+    `
+    const ListButtonWrap = styles.span`
+        display:block;
+        float:right;
+    `
+
+    const EditButton = styles.button`
+        padding: 0.25rem 0.75rem 0.25rem 0.75rem;
+        max-height: fit-content;
+        border: 1px solid gray;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: rgb(110 220 110 / 60%);
+    `
+
+    const RemoveButton = styles.button`
+        padding: 0.25rem 0.75rem 0.25rem 0.75rem;
+        max-height: fit-content;
+        border: 1px solid gray;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: rgb(255 50 30 / 40%);
+    `
+
+    const TimeWrap = styles.div`
+        display:flex;
+        gap: 2rem;
+    `
+
     return(
     <div>
       {newTodos.map((mytext,index)=>{
       return(
-      <form className="list_wrap" key={index}>
-        <div className="list_content">
-          <input id="checkButton"
+      <ListWrap key={index}>
+        <ListContent>
+          <CheckButton
           defaultChecked={mytext.completed}
-          className={mytext.completed ? 'activated' : ''}
           type={'checkbox'}
           onChange={(event)=>{ booleanhandler(event, index, mytext.completed) }}
           onClick={()=>saveList()}
           />
-          <div style={{display: 'flex', gap: '4px'}}>
+          <TextSpace active={mytext.completed}>
               <span>{mytext.isEdit ? (
                   <input
                   maxLength={15}
@@ -81,9 +131,9 @@ const List: React.FC<{
                   mytext.value
                 )}</span>
                 <span>{formatDate(mytext.date)}</span>
-             </div>
-          </div>
-          <span className="list_button_wrap">
+             </TextSpace>
+          </ListContent>
+          <ListButtonWrap>
             {/* {mytext.isEdit ? (
               <input
               maxLength={15}
@@ -97,17 +147,17 @@ const List: React.FC<{
               <span></span>
             )} */}
             {mytext.isEdit ? (
-              <button className="edit_button list_buttons" onClick={(event) => editButton(event,mytext.id)}>완료</button>
+              <EditButton onClick={(event) => editButton(event,mytext.id)}>완료</EditButton>
             ):(
-              <button className="edit_button list_buttons" onClick={(event) => editButton(event,mytext.id)}>수정</button>
+              <EditButton onClick={(event) => editButton(event,mytext.id)}>수정</EditButton>
             )}
             
-            <button className="remove_button list_buttons" onClick={(event)=>{handleRemove(event, index)}}>제거</button>
-          </span>
-          <div className="time_wrap">
+            <RemoveButton onClick={(event)=>{handleRemove(event, index)}}>제거</RemoveButton>
+          </ListButtonWrap>
+          <TimeWrap>
             <Time/>
-          </div>
-        </form>
+          </TimeWrap>
+        </ListWrap>
         )
     })}
   </div>

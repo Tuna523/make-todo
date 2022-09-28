@@ -58,7 +58,7 @@
     cursor: pointer;
 }
 
-.activated+span {
+.activated+* {
     text-decoration: line-through;
     color: gray;
 }

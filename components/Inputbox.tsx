@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { TodoList } from "../pages";
+import styles from "styled-components";
   
 const Inputbox: React.FC<{
   newTodos: TodoList[]
@@ -38,20 +39,39 @@ const Inputbox: React.FC<{
       
       console.log(todo.value);
     }
+  const InputboxWrap = styles.form`
+      margin: auto;
+      width: 55%;
+  `
+
+  const TodoInputbox = styles.input`
+      min-height: auto;
+      padding: 0.45em 0.75em;
+  `
+
+  const InputButton = styles.button`
+      background-color: rgb(110 220 110 / 20%);
+      padding: 0.5rem 1rem 0.5rem 1rem!important;
+      width: 10em;
+      height: fit-content;
+      white-space: nowrap;
+      cursor:pointer;
+      border: 1px solid gray;
+      border-radius: 5px;
+  `
 
   return(      
-    <form className="inputbox_wrap">
-    <input name="todoItem" 
+    <InputboxWrap>
+    <TodoInputbox name="todoItem" 
     maxLength={20} 
-    className="todo_inputbox" 
     placeholder='할 일 입력' 
     value={txt} 
     onChange={onChangeHandler}/>
-    <button className="input_button inputbox_buttons" 
+    <InputButton 
     onClick={handleSubmit}>
         등록
-    </button>
-    </form>
+    </InputButton>
+    </InputboxWrap>
   )
 }
 

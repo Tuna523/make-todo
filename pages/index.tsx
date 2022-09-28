@@ -84,14 +84,50 @@ const Home: React.FC<NextPage> = () => {
     setNewTodos([...news]);
   }
   
+  const SectionRoot = styled.section`
+    background-color: #eee;
+    border-radius: 10px;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+`
+const Row = styled.div`
+    display:flex;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    justify-content: center;
+`
+
+const ListTab = styled.div`
+    padding: 1.75rem 2.5rem 2.5rem 2.5rem;
+    border:0;
+    box-shadow: 0px 2.5px 10px 5px rgb(0 0 0 / 15%);
+    background-color: white;
+    border-radius: 0.7rem;
+`
+
+const ListTitle = styled.h2`
+    text-align: center;
+    padding: 0.75rem;
+`
+
+const SaveButton = styled.button`
+    background-color: aquamarine;
+    border: 1px solid gray;
+    border-radius: 5px;
+    float: right;
+    cursor: pointer;
+    padding: 0.5rem
+`  
   return (
-    <section className='outside padding_top padding_bottom padding_side'>
+    <SectionRoot>
         <Head>
           <title>my todo list</title>
         </Head>
-      <div className='row padding_top padding_bottom justify_content_center'>
-        <div className='list_tab'>
-          <h2 className='list_title'>To do List</h2>
+      <Row>
+        <ListTab>
+          <ListTitle>To do List</ListTitle>
         
           <List handleTodoListRemove={handleTodoListRemove}
           onClickHandler={onClickHandler} newTodos={newTodos} setNewTodos={setNewTodos} formatDate={formatDate}
@@ -99,13 +135,12 @@ const Home: React.FC<NextPage> = () => {
 
           <Inputbox newTodos={newTodos} handleTodoListAdd={handleTodoListAdd} saveList={saveList}/>
           
-          <div className="save_button_wrap"><button className="save_button" onClick={(event)=>{event.preventDefault(); saveList()}}>내용 저장</button></div>
-          </div>
-      </div>
-    </section>
+          <SaveButton onClick={(event)=>{event.preventDefault(); saveList()}}>내용 저장</SaveButton>
+          </ListTab>
+      </Row>
+    </SectionRoot>
   )
 }
-
 
 export default Home
 
