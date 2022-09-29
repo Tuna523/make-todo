@@ -53,6 +53,12 @@ const TimeWrap = styles.div`
   gap: 2rem;
 `
 
+const InputText = styles.input`
+  background-color: ${props => props.editting ? '' : '#f0f0f5'};
+  border: 1px solid black;
+  border-radius: 5px;
+`
+
 const List: React.FC<{
 
   handleTodoListRemove: (index:number) => void
@@ -120,7 +126,7 @@ const List: React.FC<{
           />
           <TextSpace active={mytext.completed}>
               <span>{mytext.isEdit ? (
-                  <input
+                  <InputText prop={mytext.isEdit}
                   maxLength={15}
                   type="text"
                   defaultValue={mytext.value}
