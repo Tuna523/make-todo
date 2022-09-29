@@ -39,6 +39,20 @@ const ListTab = styled.div`
 const ListTitle = styled.h2`
   text-align: center;
   padding: 0.75rem;
+
+  background: linear-gradient(to right, #fff5f5 10%, #fff0f0 25%, #ffe8e8 40%, #ffe0e0 50%, #ffd9d9 65%, #ffcccc 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  background-size: 200% auto;
+  animation: textShine 2.5s ease-in-out infinite;
+
+  @keyframes textShine {
+    to {
+      background-position: 200%;
+    }
+  }
 `
 
 const SaveButton = styled.button`
@@ -71,7 +85,6 @@ function formatDate(dateString) {
     minutes_before = minutes_before - 1;
   }
   var ymd = year + "/" + month + "/" + day; // 년/월/일 표시
-  console.log(ymd); // console 창에서 확인하기
   return (
     `${ymd} ${input.getHours()}:${input.getMinutes()}:${input.getSeconds()}
     , ${hours_before}시간 ${minutes_before}분 ${seconds_before}초 전`
