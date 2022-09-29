@@ -21,6 +21,9 @@ const InputButton = styles.button`
   cursor:pointer;
   border: 1px solid gray;
   border-radius: 5px;
+  &: hover{
+    background-color:#99d6ad;
+  }
 `
 
 const Inputbox: React.FC<{

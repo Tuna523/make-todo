@@ -37,6 +37,9 @@ const EditButton = styles.button`
   border-radius: 5px;
   cursor: pointer;
   background-color: rgb(110 220 110 / 60%);
+  &: hover {
+    background-color: #66c285;
+  }
 `
 
 const RemoveButton = styles.button`
@@ -46,6 +49,9 @@ const RemoveButton = styles.button`
   border-radius: 5px;
   cursor: pointer;
   background-color: rgb(255 50 30 / 40%);
+  &: hover {
+    background-color: #ff8c8c;
+  }
 `
 
 const TimeWrap = styles.div`
