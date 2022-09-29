@@ -1,7 +1,28 @@
 import React, { useState } from "react";
 import { TodoList } from "../pages";
 import styles from "styled-components";
-  
+
+const InputboxWrap = styles.form`
+  margin: auto;
+  width: 55%;
+`
+
+const TodoInputbox = styles.input`
+  min-height: auto;
+  padding: 0.45em 0.75em;
+`
+
+const InputButton = styles.button`
+  background-color: rgb(110 220 110 / 20%);
+  padding: 0.5rem 1rem 0.5rem 1rem!important;
+  width: 10em;
+  height: fit-content;
+  white-space: nowrap;
+  cursor:pointer;
+  border: 1px solid gray;
+  border-radius: 5px;
+`
+
 const Inputbox: React.FC<{
   newTodos: TodoList[]
   handleTodoListAdd: (todo: TodoList) => void
@@ -39,26 +60,6 @@ const Inputbox: React.FC<{
       
       console.log(todo.value);
     }
-  const InputboxWrap = styles.form`
-      margin: auto;
-      width: 55%;
-  `
-
-  const TodoInputbox = styles.input`
-      min-height: auto;
-      padding: 0.45em 0.75em;
-  `
-
-  const InputButton = styles.button`
-      background-color: rgb(110 220 110 / 20%);
-      padding: 0.5rem 1rem 0.5rem 1rem!important;
-      width: 10em;
-      height: fit-content;
-      white-space: nowrap;
-      cursor:pointer;
-      border: 1px solid gray;
-      border-radius: 5px;
-  `
 
   return(      
     <InputboxWrap>

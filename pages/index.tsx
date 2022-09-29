@@ -12,6 +12,44 @@ export type TodoList = {
   id:number,
   isEdit:boolean
 }
+
+const SectionRoot = styled.section`
+  background-color: #eee;
+  border-radius: 10px;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+`
+const Row = styled.div`
+  display:flex;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  justify-content: center;
+`
+
+const ListTab = styled.div`
+  padding: 1.75rem 2.5rem 2.5rem 2.5rem;
+  border:0;
+  box-shadow: 0px 2.5px 10px 5px rgb(0 0 0 / 15%);
+  background-color: white;
+  border-radius: 0.7rem;
+`
+
+const ListTitle = styled.h2`
+  text-align: center;
+  padding: 0.75rem;
+`
+
+const SaveButton = styled.button`
+  background-color: aquamarine;
+  border: 1px solid gray;
+  border-radius: 5px;
+  float: right;
+  cursor: pointer;
+  padding: 0.5rem
+`
+
 function formatDate(dateString) {
   const input = new Date(dateString); // 등록한 시간
   let day = input.getDate(); // 일
@@ -19,6 +57,9 @@ function formatDate(dateString) {
   let year = input.getFullYear(); // 년도
   
   var hours_before = new Date().getHours() - input.getHours();
+  if(hours_before < 0){
+    hours_before = 24 + hours_before
+  }
   var minutes_before = new Date().getMinutes() - input.getMinutes();
   if(minutes_before < 0){
     minutes_before = 60 + seconds_before;
@@ -84,42 +125,7 @@ const Home: React.FC<NextPage> = () => {
     setNewTodos([...news]);
   }
   
-  const SectionRoot = styled.section`
-    background-color: #eee;
-    border-radius: 10px;
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-`
-const Row = styled.div`
-    display:flex;
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-    justify-content: center;
-`
 
-const ListTab = styled.div`
-    padding: 1.75rem 2.5rem 2.5rem 2.5rem;
-    border:0;
-    box-shadow: 0px 2.5px 10px 5px rgb(0 0 0 / 15%);
-    background-color: white;
-    border-radius: 0.7rem;
-`
-
-const ListTitle = styled.h2`
-    text-align: center;
-    padding: 0.75rem;
-`
-
-const SaveButton = styled.button`
-    background-color: aquamarine;
-    border: 1px solid gray;
-    border-radius: 5px;
-    float: right;
-    cursor: pointer;
-    padding: 0.5rem
-`  
   return (
     <SectionRoot>
         <Head>

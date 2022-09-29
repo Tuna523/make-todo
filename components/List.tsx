@@ -3,6 +3,56 @@ import { TodoList } from "../pages";
 import Time from "./Time";
 import styles from "styled-components"
 
+const ListWrap = styles.form`
+  padding: 15px 15px 7.5px 15px;
+  width: 40rem;
+  border-bottom: 1.5px solid gray;
+`
+
+const ListContent = styles.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+`
+
+const CheckButton = styles.input`
+  cursor: pointer;
+`
+
+const TextSpace = styles.div`
+  text-decoration: ${props => props.active  ? 'line-through' : 'none'};
+  color: ${props => props.active ? 'gray' : 'black'};
+  display: flex;
+  gap: 4px;
+`
+const ListButtonWrap = styles.span`
+  display:block;
+  float:right;
+`
+
+const EditButton = styles.button`
+  padding: 0.25rem 0.75rem 0.25rem 0.75rem;
+  max-height: fit-content;
+  border: 1px solid gray;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: rgb(110 220 110 / 60%);
+`
+
+const RemoveButton = styles.button`
+  padding: 0.25rem 0.75rem 0.25rem 0.75rem;
+  max-height: fit-content;
+  border: 1px solid gray;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: rgb(255 50 30 / 40%);
+`
+
+const TimeWrap = styles.div`
+  display:flex;
+  gap: 2rem;
+`
+
 const List: React.FC<{
 
   handleTodoListRemove: (index:number) => void
@@ -55,55 +105,6 @@ const List: React.FC<{
       )
     }
 
-    const ListWrap = styles.form`
-        padding: 15px 15px 7.5px 15px;
-        width: 40rem;
-        border-bottom: 1.5px solid gray;
-    `
-
-    const ListContent = styles.div`
-        display: flex;
-        flex-direction: row;
-        gap: 10px;
-    `
-
-    const CheckButton = styles.input`
-        cursor: pointer;
-    `
-
-    const TextSpace = styles.div`
-        text-decoration: ${props => props.active  ? 'line-through' : 'none'};
-        color: ${props => props.active ? 'gray' : 'black'};
-        display: flex;
-        gap: 4px;
-    `
-    const ListButtonWrap = styles.span`
-        display:block;
-        float:right;
-    `
-
-    const EditButton = styles.button`
-        padding: 0.25rem 0.75rem 0.25rem 0.75rem;
-        max-height: fit-content;
-        border: 1px solid gray;
-        border-radius: 5px;
-        cursor: pointer;
-        background-color: rgb(110 220 110 / 60%);
-    `
-
-    const RemoveButton = styles.button`
-        padding: 0.25rem 0.75rem 0.25rem 0.75rem;
-        max-height: fit-content;
-        border: 1px solid gray;
-        border-radius: 5px;
-        cursor: pointer;
-        background-color: rgb(255 50 30 / 40%);
-    `
-
-    const TimeWrap = styles.div`
-        display:flex;
-        gap: 2rem;
-    `
 
     return(
     <div>
