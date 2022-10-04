@@ -10,19 +10,27 @@ const InputboxWrap = styles.form`
 const TodoInputbox = styles.input`
   min-height: auto;
   padding: 0.45em 0.75em;
+  background-color: #f0f0f5;
+  border: 1px solid gray;
+  border-radius: 5px;
+  &:focus{
+    background-color: #b2b2d1;
+  }
 `
 
 const InputButton = styles.button`
   background-color: rgb(110 220 110 / 20%);
   padding: 0.5rem 1rem 0.5rem 1rem!important;
-  width: 10em;
+  width: 5em;
   height: fit-content;
   white-space: nowrap;
   cursor:pointer;
   border: 1px solid gray;
   border-radius: 5px;
-  &: hover{
+  transition: width 2s 1s;
+  &:hover{
     background-color:#99d6ad;
+    width: 8rem;
   }
 `
 

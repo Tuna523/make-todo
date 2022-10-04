@@ -19,8 +19,8 @@ const CheckButton = styles.input`
   cursor: pointer;
 `
 
-const TextSpace = styles.div`
-  text-decoration: ${props => props.active  ? 'line-through' : 'none'};
+const TextSpace = styles.div<{active:boolean}>`
+  text-decoration: ${({active}) => active ? 'line-through' : 'none'};
   color: ${props => props.active ? 'gray' : 'black'};
   display: flex;
   gap: 4px;
@@ -37,7 +37,7 @@ const EditButton = styles.button`
   border-radius: 5px;
   cursor: pointer;
   background-color: rgb(110 220 110 / 60%);
-  &: hover {
+  &:hover {
     background-color: #66c285;
   }
 `
@@ -49,7 +49,7 @@ const RemoveButton = styles.button`
   border-radius: 5px;
   cursor: pointer;
   background-color: rgb(255 50 30 / 40%);
-  &: hover {
+  &:hover {
     background-color: #ff8c8c;
   }
 `
@@ -59,10 +59,13 @@ const TimeWrap = styles.div`
   gap: 2rem;
 `
 
-const InputText = styles.input`
-  background-color: ${props => props.editting ? '' : '#f0f0f5'};
+const InputText = styles.input<{isEdit: boolean}>`
+  background-color: ${({isEdit}) => isEdit ? '' : '#f0f0f5'};
   border: 1px solid black;
   border-radius: 5px;
+  &:focus {
+    background-color: #b2b2d1;
+  }
 `
 
 const List: React.FC<{
@@ -131,8 +134,9 @@ const List: React.FC<{
           onClick={()=>saveList()}
           />
           <TextSpace active={mytext.completed}>
-              <span>{mytext.isEdit ? (
-                  <InputText prop={mytext.isEdit}
+              {mytext.isEdit ? (
+                  <InputText 
+                  isEdit={mytext.isEdit}
                   maxLength={15}
                   type="text"
                   defaultValue={mytext.value}
@@ -142,7 +146,7 @@ const List: React.FC<{
                   />
                 ) : (
                   mytext.value
-                )}</span>
+                )}
                 <span>{formatDate(mytext.date)}</span>
              </TextSpace>
           </ListContent>
